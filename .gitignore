@@ -1,0 +1,19 @@
+# môi trường ảo
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# dữ liệu lớn (tải về, không commit)
+data/raw/
+
+# hệ điều hành
+Thumbs.db
+desktop.ini
+.DS_Store
