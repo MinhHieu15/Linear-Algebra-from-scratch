@@ -1,4 +1,4 @@
-"""Test khởi động: đảm bảo môi trường và package import được, để CI xanh từ Ngày 1."""
+"""Smoke tests: make sure the environment and package import, so CI is green from Day 1."""
 
 import numpy as np
 

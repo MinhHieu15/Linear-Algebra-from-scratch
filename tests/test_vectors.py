@@ -1,6 +1,6 @@
-"""Test cho linalg/vectors.py, đối chiếu với NumPy.
+"""Tests for linalg/vectors.py, checked against NumPy.
 
-Ngày 2: xóa dòng pytestmark bên dưới sau khi viết xong as_vector.
+Day 2: delete the pytestmark line below once as_vector is written.
 """
 
 import numpy as np
@@ -8,7 +8,7 @@ import pytest
 
 from linalg.vectors import as_vector
 
-pytestmark = pytest.mark.skip(reason="Ngày 2 chưa làm")
+pytestmark = pytest.mark.skip(reason="Day 2 not done yet")
 
 
 def test_as_vector_from_list():

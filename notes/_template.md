@@ -1,13 +1,13 @@
-# Ngày XX — <chủ đề>
+# Day XX — <topic>
 
-**Đã xem:** <video>
+**Watched:** <video>
 
-## Ý chính (bằng lời của mình)
+## Key ideas (in my own words)
 
 -
 
-## Ví dụ làm tay
+## Worked examples by hand
 
-## Còn chưa hiểu
+## Still unclear
 
 -

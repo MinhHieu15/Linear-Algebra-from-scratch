@@ -1,17 +1,17 @@
-"""Phép toán trên vector (Giai đoạn 1, Ngày 2–14).
+"""Vector operations (Phase 1, Days 2–14).
 
-Quy tắc: không gọi np.linalg trong file này. np.linalg chỉ dùng trong tests để đối chiếu.
+Rule: never call np.linalg in this file. np.linalg is only used in tests, as the reference.
 """
 
 import numpy as np
 
 
 def as_vector(x):
-    """Ngày 2: chuyển list hoặc array thành array 1D kiểu float.
+    """Day 2: convert a list or array into a 1D float array.
 
-    Báo ValueError nếu đầu vào không phải 1 chiều.
+    Raise ValueError if the input is not 1-dimensional.
 
     >>> as_vector([1, 2, 3])
     array([1., 2., 3.])
     """
-    raise NotImplementedError("Ngày 2: hãy tự viết hàm này")
+    raise NotImplementedError("Day 2: write this function yourself")

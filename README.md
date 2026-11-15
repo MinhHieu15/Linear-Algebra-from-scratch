@@ -1,19 +1,19 @@
 # Machine learning from scratch
 
-Tự cài đặt đại số tuyến tính bằng Python và NumPy, rồi dùng chính thư viện đó cho các thuật toán ML: hồi quy tuyến tính, PCA, recommender, neural net.
+Implementing linear algebra from scratch in Python and NumPy, then using that same library for ML algorithms: linear regression, PCA, a recommender system and a neural net.
 
-Lộ trình 60 ngày: [ROADMAP.md](ROADMAP.md). Mỗi ngày một hàm mới và test đối chiếu với `np.linalg`.
+60-day plan: [ROADMAP.md](ROADMAP.md). One new function per day, each with tests checked against `np.linalg`.
 
-## Cấu trúc
+## Layout
 
 ```
-linalg/      thư viện tự viết (không dùng np.linalg bên trong)
-tests/       pytest, đối chiếu kết quả với NumPy
-notebooks/   thí nghiệm, hình vẽ: dayXX_<chu-de>.ipynb
-notes/       ghi chú lý thuyết: dayXX.md (mẫu: notes/_template.md)
+linalg/      the library (no np.linalg inside)
+tests/       pytest, results checked against NumPy
+notebooks/   experiments and plots: dayXX_<topic>.ipynb
+notes/       theory notes: dayXX.md (template: notes/_template.md)
 ```
 
-## Chạy
+## Run
 
 ```bash
 python -m venv .venv
@@ -22,8 +22,8 @@ pip install -r requirements.txt
 pytest
 ```
 
-## Tiến độ
+## Progress
 
-| Ngày | Chủ đề | Code | Ghi chú |
+| Day | Topic | Code | Notes |
 |---|---|---|---|
-| 01 | NumPy cơ bản, dựng repo | [notebook](notebooks/day01_numpy.ipynb) | [notes](notes/day01.md) |
+| 01 | NumPy basics, repo setup | [notebook](notebooks/day01_numpy.ipynb) | [notes](notes/day01.md) |

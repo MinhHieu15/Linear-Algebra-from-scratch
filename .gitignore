@@ -1,4 +1,4 @@
-# môi trường ảo
+# virtual environment
 .venv/
 venv/
 
@@ -10,10 +10,10 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
-# dữ liệu lớn (tải về, không commit)
+# large datasets (download, don't commit)
 data/raw/
 
-# hệ điều hành
+# OS files
 Thumbs.db
 desktop.ini
 .DS_Store

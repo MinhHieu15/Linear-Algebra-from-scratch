@@ -1,1 +1,1 @@
-"""Thư viện đại số tuyến tính tự viết, lớn dần theo ROADMAP 60 ngày."""
+"""A linear algebra library written from scratch, growing day by day along the 60-day ROADMAP."""
