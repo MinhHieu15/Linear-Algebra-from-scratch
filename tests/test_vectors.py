@@ -8,7 +8,7 @@ import pytest
 
 from linalg.vectors import as_vector
 
-pytestmark = pytest.mark.skip(reason="Day 2 not done yet")
+
 
 
 def test_as_vector_from_list():
@@ -20,3 +20,7 @@ def test_as_vector_from_list():
 def test_as_vector_rejects_2d():
     with pytest.raises(ValueError):
         as_vector([[1, 2], [3, 4]])
+
+def test_as_vector_rejects_scalar():
+    with pytest.raises(ValueError):
+        as_vector(2)
