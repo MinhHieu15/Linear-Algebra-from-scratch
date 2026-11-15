@@ -12,10 +12,10 @@ Video path notation: `M2 › 02 › 01` means module `02_vectors-...`, subfolder
 
 ## 1. The idea: one repo that grows every day
 
-Create a GitHub repo called `linalg-from-scratch`. Every day you write **one function yourself** (plain Python or basic NumPy operations, *never* `np.linalg`), then write **a test that compares it against `np.linalg`**. Every commit means something, and by the end you have a small linear algebra library you wrote yourself.
+Create a GitHub repo called `Linear-Algebra-from-scratch`. Every day you write **one function yourself** (plain Python or basic NumPy operations, *never* `np.linalg`), then write **a test that compares it against `np.linalg`**. Every commit means something, and by the end you have a small linear algebra library you wrote yourself.
 
 ```
-linalg-from-scratch/
+Linear-Algebra-from-scratch/
 ├── README.md              # log: day, topic, links to files
 ├── requirements.txt       # numpy, matplotlib, pytest, ...
 ├── linalg/                # your library
@@ -161,7 +161,7 @@ Suggested material: *3Blue1Brown — Essence of Linear Algebra* (YouTube, matchi
 | 57 | BC 23 › 003 | Matrix factorization: truncated SVD on the rating matrix (fill blanks with the mean), predict ratings, measure RMSE on a test set. | `ml: SVD recommender` |
 | 58 | BC 25 (Neural Nets, theory part) | Forward pass of a 2-layer network using only `matmul` and `einsum`: `X → XW₁+b₁ → ReLU → ·W₂+b₂`. Check shapes at every step. | `ml: neural net forward pass as matrix ops` |
 | 59 | — | Backprop by hand (gradients are products with transposed matrices), train the network on 2D toy data, plot the decision boundary. | `ml: backprop with matrix calculus` |
-| 60 | **Capstone** | Write a complete README: index of all 60 days, your best visuals (grid transforms, PageRank, SVD image compression, PCA). Tag `v1.0`. | `release: v1.0 linalg-from-scratch` |
+| 60 | **Capstone** | Write a complete README: index of all 60 days, your best visuals (grid transforms, PageRank, SVD image compression, PCA). Tag `v1.0`. | `release: v1.0 Linear-Algebra-from-scratch` |
 
 ---
 

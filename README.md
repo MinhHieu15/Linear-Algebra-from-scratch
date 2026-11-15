@@ -1,6 +1,6 @@
-# Machine learning from scratch
+# Linear Algebra from scratch
 
-Implementing linear algebra from scratch in Python and NumPy, then using that same library for ML algorithms: linear regression, PCA, a recommender system and a neural net.
+Implementing linear algebra from scratch in Python and NumPy: vectors, matrices, solving linear systems, inverses, determinants, change of basis, Gram–Schmidt, eigenvalues, QR and SVD.
 
 60-day plan: [ROADMAP.md](ROADMAP.md). One new function per day, each with tests checked against `np.linalg`.
 
@@ -27,3 +27,4 @@ pytest
 | Day | Topic | Code | Notes |
 |---|---|---|---|
 | 01 | NumPy basics, repo setup | [notebook](notebooks/day01_numpy.ipynb) | [notes](notes/day01.md) |
+| 02 | Indexing, masks, broadcasting, `as_vector` | [notebook](notebooks/day02_indexing.ipynb) · [vectors.py](linalg/vectors.py) | [notes](notes/day02.md) |
