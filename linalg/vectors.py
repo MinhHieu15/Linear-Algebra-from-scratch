@@ -18,3 +18,30 @@ def as_vector(x):
     if x.ndim != 1:
         raise ValueError("Input must be 1-dimensional")
     return x
+
+
+def is_zero_vector(v, tol=1e-10):
+    """Day 3: return True if every entry of v is within tol of zero.
+
+    Floats carry tiny rounding errors, so never test with == 0.
+    Remember Day 2, Task 3.3: compare the *absolute value* with tol.
+
+    >>> is_zero_vector([1e-12, -3e-11])
+    True
+    >>> is_zero_vector([0.0, 0.001])
+    False
+    """
+    raise NotImplementedError("Day 3: write this function yourself")
+
+
+def vectors_close(u, v, tol=1e-10):
+    """Day 3: return True if u and v have the same length and every pair of
+    entries differs by less than tol.
+
+    Raise ValueError if the lengths differ (comparing a 2D vector with a 3D
+    vector is a bug in the caller, not a False answer).
+
+    >>> vectors_close([0.1 + 0.2, 1.0], [0.3, 1.0])
+    True
+    """
+    raise NotImplementedError("Day 3: write this function yourself")

@@ -28,3 +28,4 @@ pytest
 |---|---|---|---|
 | 01 | NumPy basics, repo setup | [notebook](notebooks/day01_numpy.ipynb) | [notes](notes/day01.md) |
 | 02 | Indexing, masks, broadcasting, `as_vector` | [notebook](notebooks/day02_indexing.ipynb) · [vectors.py](linalg/vectors.py) | [notes](notes/day02.md) |
+| 03 | NumPy exercises, `is_zero_vector`, `vectors_close` | [notebook](notebooks/day03_exercises.ipynb) · [vectors.py](linalg/vectors.py) | [notes](notes/day03.md) |

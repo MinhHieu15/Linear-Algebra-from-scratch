@@ -72,7 +72,7 @@ Why phase 5 exists: the Imperial course **does not cover SVD or least squares**,
 |---|---|---|---|
 | 1 | BC 05 › 002, 003 (NumPy arrays) | Create the repo, `README.md`, `requirements.txt`, `.gitignore`. Notebook `day01_numpy.ipynb`: create vectors and matrices, `shape`, `reshape`, `arange`, `linspace`, `eye`. | `init: project skeleton + numpy basics` |
 | 2 | BC 05 › 005, 006 (indexing, operations) | Notebook: slicing, boolean masks, broadcasting. Write `as_vector(x)` in `linalg/vectors.py`: takes a list or array, returns a 1D float array, raises an error if it is not 1D. First test in `tests/test_vectors.py`. | `feat: as_vector + first pytest` |
-| 3 | BC 05 › 007, 008 (exercises) | Redo the NumPy Exercises without looking at the solutions. Add `.github/workflows/test.yml` that runs `pytest` on every push. | `ci: run pytest on push` |
+| 3 | BC 05 › 007, 008 (exercises) | Redo the NumPy Exercises without looking at the solutions. Write `is_zero_vector` and `vectors_close` (float comparison with a tolerance) in `linalg/vectors.py`. Add the CI badge to the README. | `feat: zero check + vector comparison with tolerance` |
 
 ### Phase 1 — Vectors (LA Modules 1–2)
 
