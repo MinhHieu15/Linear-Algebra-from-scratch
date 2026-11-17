@@ -17,3 +17,7 @@ data/raw/
 Thumbs.db
 desktop.ini
 .DS_Store
+
+# package build info (from pip install -e .)
+*.egg-info/
+build/

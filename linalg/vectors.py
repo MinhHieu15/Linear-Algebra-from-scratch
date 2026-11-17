@@ -31,7 +31,8 @@ def is_zero_vector(v, tol=1e-10):
     >>> is_zero_vector([0.0, 0.001])
     False
     """
-    raise NotImplementedError("Day 3: write this function yourself")
+    v = as_vector(v)
+    return np.all(np.abs(v) < tol)
 
 
 def vectors_close(u, v, tol=1e-10):
@@ -44,4 +45,8 @@ def vectors_close(u, v, tol=1e-10):
     >>> vectors_close([0.1 + 0.2, 1.0], [0.3, 1.0])
     True
     """
-    raise NotImplementedError("Day 3: write this function yourself")
+    u = as_vector(u)
+    v = as_vector(v)
+    if u.shape != v.shape:
+        raise ValueError("Vectors must have the same length")
+    return np.all(np.abs(u - v) < tol)

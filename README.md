@@ -1,5 +1,7 @@
 # Linear Algebra from scratch
 
+![tests](https://github.com/MinhHieu15/Linear-Algebra-from-scratch/actions/workflows/test.yml/badge.svg)
+
 Implementing linear algebra from scratch in Python and NumPy: vectors, matrices, solving linear systems, inverses, determinants, change of basis, Gram–Schmidt, eigenvalues, QR and SVD.
 
 60-day plan: [ROADMAP.md](ROADMAP.md). One new function per day, each with tests checked against `np.linalg`.
