@@ -78,7 +78,7 @@ Why phase 5 exists: the Imperial course **does not cover SVD or least squares**,
 
 | Day | Study | Coding task | Commit |
 |---|---|---|---|
-| 4 | M1 › 01 › 01; M1 › 02 › 01, 02 | `notes/day04.md`: why ML needs linear algebra (fitting parameters = finding a point in parameter space). Notebook: plot the SSE of the model `y = m·x + c` over an (m, c) grid with `contourf`. | `notebook: parameter space contour` |
+| 4 | M1 › 01 › 01; M1 › 02 › 01, 02 | `notes/day04.md`: why ML needs linear algebra (fitting parameters = finding a point in parameter space). Notebook: apples-and-bananas as `A p = c`; fit a Gaussian to height data, plot the SSE over a (mu, sigma) grid with `contourf`, and walk downhill with gradient steps. | `notebook: parameter space contour` |
 | 5 | M1 › 02, assignments *exploring-parameter-space* and *solving-simultaneous-equations* | Do both exercises in the `.html` files. Write `add(u, v)` and `scale(k, v)` with loops, test against `u + v` and `k * v`. | `feat: vector add and scale` |
 | 6 | M1 › 03 › 01 + assignment *doing-some-vector-operations*; M1 › 04 › 01 | `sub`, `linear_combination(coeffs, vectors)`. Notebook: draw vector addition with `plt.quiver` (parallelogram rule). | `feat: linear combination + quiver plot` |
 | 7 | M2 › 01 › 01; M2 › 02 › 01 (modulus, inner product) | `dot(u, v)`, `norm(v)` (L2). Test against `np.dot` and `np.linalg.norm`. Also test properties: `dot(u,v) == dot(v,u)`, `dot(v,v) == norm(v)**2`. | `feat: dot product and L2 norm` |
