@@ -9,6 +9,7 @@ import datetime as dt
 import json
 import os
 import re
+import shutil
 import socket
 import subprocess
 import sys
@@ -22,7 +23,40 @@ PLAYLIST = "https://www.youtube.com/playlist?list=PLZHQObOWTQDPD3MizzM2xVFitgF8h
 STATE = Path.home() / ".la_reminder.json"
 TOTAL_DAYS = 60
 
-BG, CARD, LINE = "#f6f8fa", "#ffffff", "#d0d7de"
+NEXT_DAY_PROMPT = """\
+You are creating Day {n} of a 60-day "Linear Algebra from scratch" study repo (the current directory).
+Day {prev} is finished. The learner studies in English; keep the English short and simple.
+
+Read first:
+- ROADMAP.md: the row for Day {n} in section 3 (Study, Coding task, Commit) and section "1b. How to study"
+  (daily loop, the 3Blue1Brown chapter table, the Core/Bonus rule).
+- notebooks/day{prev:02d}_*.ipynb and notes/day{prev:02d}.md: copy their style.
+- linalg/ and tests/: the existing library code and test style.
+
+Create:
+1. notebooks/day{n:02d}_<short_topic>.ipynb (valid nbformat 4 JSON, kernelspec python3):
+   - Title cell "# Day {n:02d} - <topic>": what to watch (the 3Blue1Brown chapter from the table first, if any,
+     then the course videos from the Study column), then a short Goal.
+   - A first code cell with the imports.
+   - "## Core - <name>" section(s): about 45 minutes of work. Then "## Bonus - <name>": optional extras.
+   - Each task is a markdown cell starting with "**<ID> - <short name>:**" (IDs like A1, A2, B1), then a one-line
+     **Why**, the task, and **Expected:** with the exact output (run the numbers to be sure). Follow it with one
+     empty code cell, or a function stub whose body is "...".
+   - Last cell: "## Check yourself" with 4-5 questions, answered in a Markdown cell.
+   - Easy to harder. Never include solutions.
+2. If the Coding task asks for library functions: add them to the right linalg/*.py file as stubs with a docstring
+   and `raise NotImplementedError`. Add tests in tests/ that compare against NumPy, each with a line `@DAY{n}` above
+   it, where `DAY{n} = pytest.mark.skip(reason="Day {n}: delete the @DAY{n} lines when done")`. The notebook's last
+   Core task tells the learner to delete those lines and run pytest.
+3. notes/day{n:02d}.md in the style of notes/day{prev:02d}.md: a Watched line, "## Key ideas (in my own words)"
+   with 4-6 prompts written as "- <question>:" (nothing after the colon), "## Worked examples by hand" with 2-3 small
+   numbered exercises, and "## Still unclear" with "-".
+
+Rules: do not change earlier days' files, README.md or ROADMAP.md. Do not commit. At the end run
+`.venv/Scripts/python.exe -m pytest -q`; it must pass (new tests are skipped). Finish with a 3-line summary.
+"""
+
+BG, CARD, LINE ="#f6f8fa", "#ffffff", "#d0d7de"
 TEXT, MUTED, LINK = "#1f2328", "#656d76", "#0969da"
 GREEN, RED, EMPTY = "#2da44e", "#cf222e", "#ebedf0"
 FONT = "Segoe UI"
@@ -94,21 +128,23 @@ def notebook_report(day):
     paths = list((ROOT / "notebooks").glob(f"day{day:02d}_*.ipynb"))
     if not paths:
         return None
-    report = {"empty": [], "errors": [], "answered": True}
-    task = "setup"
+    report = {"empty": [], "bonus_left": [], "errors": [], "answered": True}
+    task, bonus = "setup", False
     cells = json.loads(paths[0].read_text(encoding="utf-8"))["cells"]
     for i, c in enumerate(cells):
         src = "".join(c["source"]) if isinstance(c["source"], list) else c["source"]
         if c["cell_type"] == "markdown":
+            if src.lstrip().startswith("## "):
+                bonus = "bonus" in src.splitlines()[0].lower()
             m = re.match(r"\s*\*\*(?:Task )?([^*]+?)\*\*", src)
             if m:
-                task = m[1].split("—")[0].split(" - ")[0].strip(" :")
+                task = re.split(r" [—-] ", m[1])[0].strip(" :")
             if src.lstrip().startswith("## Check yourself"):
                 report["answered"] = any(n["cell_type"] == "markdown" for n in cells[i + 1:])
             continue
         body = [l for l in src.splitlines() if l.strip() and not l.strip().startswith(("def ", "#"))]
         if all(l.strip() == "..." for l in body):
-            report["empty"].append(task)
+            report["bonus_left" if bonus else "empty"].append(task)  # Bonus never blocks
         if any(o.get("output_type") == "error" for o in c.get("outputs", [])):
             report["errors"].append(task)
     return report
@@ -388,8 +424,20 @@ def show(week=False):
     # next
     if day + 1 in rows:
         nxt = card(root, f"NEXT · DAY {day + 1}")
-        tk.Label(nxt, text=title_of(rows[day + 1][2]), bg=CARD, fg=TEXT,
-                 font=(FONT, 10)).pack(anchor="w")
+        nrow = tk.Frame(nxt, bg=CARD)
+        nrow.pack(fill="x")
+        tk.Label(nrow, text=title_of(rows[day + 1][2]), bg=CARD, fg=TEXT,
+                 font=(FONT, 10)).pack(side="left")
+        nbr = notebook_report(day)
+        day_dirty = git("status", "--short", "--", f"notebooks/day{day:02d}_*", f"notes/day{day:02d}.md")
+        ready = (committed and not day_dirty and nbr is not None and not nbr["empty"]
+                 and not nbr["errors"] and nbr["answered"] and blanks == 0)
+        if ready:
+            tk.Button(nrow, text=f"Make Day {day + 1}  ▶", command=lambda: make_next(), bg=GREEN, fg="white",
+                      relief="flat", padx=12, pady=2, font=(FONT, 9, "bold")).pack(side="right")
+        else:
+            tk.Label(nrow, text=f"unlocks when Day {day} is done and committed", bg=CARD, fg=MUTED,
+                     font=(FONT, 8)).pack(side="right")
 
     # buttons
     btns = tk.Frame(root, bg=BG, pady=10)
@@ -400,6 +448,77 @@ def show(week=False):
         root.after(30 * 60 * 1000, root.deiconify)
 
     reload = {"again": False}
+
+    def make_next():
+        n = day + 1
+        claude = shutil.which("claude")
+        win = tk.Toplevel(root, bg=CARD, padx=px(16), pady=px(12))
+        win.title(f"Make Day {n}")
+        win.attributes("-topmost", True)
+        win.transient(root)
+        win.grab_set()
+
+        def line(text, color=TEXT, bold=False, size=10):
+            lbl = tk.Label(win, text=text, bg=CARD, fg=color, anchor="w", justify="left",
+                           wraplength=px(420), font=(FONT, size, "bold" if bold else "normal"))
+            lbl.pack(fill="x")
+            return lbl
+
+        line(f"DAY {n}", MUTED, True, 9)
+        line(title_of(rows[n][2]), TEXT, True, 14)
+        if not claude:
+            line("\nClaude Code (the 'claude' command) was not found, so the app can't write the day. "
+                 f"Ask Claude in chat instead: \"Create Day {n}\".", RED)
+            tk.Button(win, text="Close", command=win.destroy, padx=10).pack(anchor="e", pady=(10, 0))
+            return
+        line("\nClaude will create the notebook and the notes for this day, with Core and Bonus tasks, "
+             "and add function stubs and tests if the day needs them. It doesn't commit anything.")
+        line("Takes about 2–5 minutes and uses your Claude usage.", MUTED)
+        status = line("", MUTED)
+        row = tk.Frame(win, bg=CARD)
+        row.pack(fill="x", pady=(10, 0))
+        cancel = tk.Button(row, text="Cancel", command=win.destroy, padx=10)
+        cancel.pack(side="right", padx=(6, 0))
+
+        def start():
+            go.config(state="disabled")
+            cancel.config(state="disabled")
+            win.protocol("WM_DELETE_WINDOW", lambda: None)  # don't close while Claude works
+            result, t0 = {}, dt.datetime.now()
+
+            def work():
+                try:
+                    p = subprocess.run(
+                        [claude, "-p", "--permission-mode", "acceptEdits", "--allowedTools",
+                         "Read,Write,Edit,Glob,Grep,Bash(.venv/Scripts/python.exe -m pytest:*)"],
+                        input=NEXT_DAY_PROMPT.format(n=n, prev=day), cwd=ROOT, capture_output=True,
+                        encoding="utf-8", errors="replace", timeout=20 * 60,
+                        creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+                    result["out"] = (p.stdout or p.stderr).strip()
+                except subprocess.TimeoutExpired:
+                    result["out"] = "Timed out after 20 minutes."
+
+            def poll():
+                if "out" not in result:
+                    secs = int((dt.datetime.now() - t0).total_seconds())
+                    status.config(text=f"Claude is writing Day {n}…  {secs // 60}:{secs % 60:02d}")
+                    win.after(1000, poll)
+                    return
+                made = list((ROOT / "notebooks").glob(f"day{n:02d}_*.ipynb"))
+                if made:
+                    status.config(text=f"✓ Day {n} is ready: {made[0].name}\n\n{result['out'][-400:]}", fg=GREEN)
+                    cancel.config(text=f"Open Day {n}", state="normal", command=lambda: (
+                        reload.update(again=True), root.destroy()))
+                else:
+                    status.config(text="✗ Something went wrong:\n" + result["out"][-400:], fg=RED)
+                    cancel.config(text="Close", state="normal", command=win.destroy)
+                win.protocol("WM_DELETE_WINDOW", win.destroy)
+
+            threading.Thread(target=work, daemon=True).start()
+            poll()
+
+        go = tk.Button(row, text=f"Create Day {n}", command=start, padx=14, bg=GREEN, fg="white")
+        go.pack(side="right")
 
     def check_and_commit():
         root.config(cursor="watch")
