@@ -48,6 +48,60 @@ Linear-Algebra-from-scratch/
 
 ---
 
+## 1b. How to study (updated after Day 4)
+
+Based on two videos: Aleks Gornik, *How I use AI to learn engineering (anti brain rot studying)*, and Ben AI, *Anthropic's study: how the top 1% use AI differently*.
+
+### The daily loop
+
+1. **See it first (10 min).** Before the course video, watch the matching *3Blue1Brown — Essence of Linear Algebra* chapter (table below). If a picture still doesn't click, ask Claude for a visual: *"Make me an interactive page that shows [idea] with sliders I can move."*
+2. **Watch the course video.** Pause and predict what comes next.
+3. **Core first.** Every day has **Core** tasks (about 45 minutes) and **Bonus** tasks. Commit as soon as Core is done. Bonus is optional and never blocks the next day.
+4. **Code it yourself.** Write the function before asking for help. Run `pytest`.
+5. **Explain it back.** In `notes/dayXX.md`, explain the idea in 3 sentences as if to a friend. If you can't, that's the part to ask about.
+6. **Commit.**
+
+### When you get stuck: ask for the 20%, not the answer
+
+Copy this, fill it in, and paste it to Claude:
+
+> Day __, Task __. I'm stuck on: ___. What I tried: ___. What I see (error or screenshot): ___.
+> Give me the **minimum idea** I need to attempt it myself, and **one hint**. Don't write the solution.
+
+If the hint isn't enough, ask for a second hint. Ask for the full solution only after two hints, and then **retype it yourself** and explain each line in your notes.
+
+### Rules from the "top 1%" study
+
+| Lesson | What it means here |
+|---|---|
+| Communicate clearly | Always say the day, the task, what you tried, and paste the error. A screenshot plus one sentence beats "fix it". |
+| Give better feedback | Say exactly what's confusing: "I don't get why we subtract `lr * grad`", not "I don't understand". |
+| Make work fast to review | Every task has an **Expected** output. Compare first, ask second. |
+| Give Claude your decisions | Tell Claude your level and what you want: "hints only", "explain in Vietnamese", "make this optional". |
+| Keep it lean | One repo, one notebook per day, Core before Bonus. Don't add tools or topics that aren't in the plan. |
+
+### 3Blue1Brown chapters to watch before each phase
+
+| Days | Essence of Linear Algebra chapter |
+|---|---|
+| 5–6 | Ch 1 *Vectors* · Ch 2 *Linear combinations, span, and basis vectors* |
+| 7–9 | Ch 9 *Dot products and duality* |
+| 10–12 | Ch 2 again (basis), Ch 13 *Change of basis* (first half) |
+| 15–19 | Ch 3 *Linear transformations and matrices* · Ch 4 *Matrix multiplication as composition* · Ch 5 *Three-dimensional linear transformations* |
+| 20–22 | Ch 7 *Inverse matrices, column space and null space* |
+| 23–24 | Ch 6 *The determinant* · (Bonus) Ch 12 *Cramer's rule* |
+| 27–28 | Ch 13 *Change of basis* |
+| 35–41 | Ch 14 *Eigenvectors and eigenvalues* · Ch 15 *A quick trick for computing eigenvalues* |
+| 45–46 | Ch 7 again · Ch 8 *Nonsquare matrices as transformations between dimensions* |
+
+### What changed in the plan
+
+- **Day 4, Part D (gradient descent) is now Bonus.** It's calculus and optimization, not linear algebra. The only idea Day 4 needs is: *a step in parameter space is a vector*. You'll meet gradients properly in Phase 6 (Days 58–59).
+- **Every day from Day 5 on is split into Core and Bonus** in its notebook.
+- **Splitting a day is normal.** If Core takes more than about 60 minutes, stop, commit what you have, and finish tomorrow. Days 20–23 and 36–41 are the most likely to need two days.
+
+---
+
 ## 2. Overview
 
 | Phase | Days | Content | Source |
@@ -78,7 +132,7 @@ Why phase 5 exists: the Imperial course **does not cover SVD or least squares**,
 
 | Day | Study | Coding task | Commit |
 |---|---|---|---|
-| 4 | M1 › 01 › 01; M1 › 02 › 01, 02 | `notes/day04.md`: why ML needs linear algebra (fitting parameters = finding a point in parameter space). Notebook: apples-and-bananas as `A p = c`; fit a Gaussian to height data, plot the SSE over a (mu, sigma) grid with `contourf`, and walk downhill with gradient steps. | `notebook: parameter space contour` |
+| 4 | M1 › 01 › 01; M1 › 02 › 01, 02 | `notes/day04.md`: why ML needs linear algebra (fitting parameters = finding a point in parameter space). Notebook: apples-and-bananas as `A p = c`; fit a Gaussian to height data, plot the SSE over a (mu, sigma) grid with `contourf`. *Bonus:* walk downhill with gradient steps. | `notebook: parameter space contour` |
 | 5 | M1 › 02, assignments *exploring-parameter-space* and *solving-simultaneous-equations* | Do both exercises in the `.html` files. Write `add(u, v)` and `scale(k, v)` with loops, test against `u + v` and `k * v`. | `feat: vector add and scale` |
 | 6 | M1 › 03 › 01 + assignment *doing-some-vector-operations*; M1 › 04 › 01 | `sub`, `linear_combination(coeffs, vectors)`. Notebook: draw vector addition with `plt.quiver` (parallelogram rule). | `feat: linear combination + quiver plot` |
 | 7 | M2 › 01 › 01; M2 › 02 › 01 (modulus, inner product) | `dot(u, v)`, `norm(v)` (L2). Test against `np.dot` and `np.linalg.norm`. Also test properties: `dot(u,v) == dot(v,u)`, `dot(v,v) == norm(v)**2`. | `feat: dot product and L2 norm` |
