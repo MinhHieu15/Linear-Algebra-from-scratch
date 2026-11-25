@@ -7,23 +7,23 @@
 Answer each in 1–2 lines:
 
 - Why the apples-and-bananas problem is a linear algebra problem:
-  Because we have multiple linear equations with unknown prices.
-  We can represent them using matrices and vectors.
+  - Because we have multiple linear equations with unknown prices.
+    We can represent them using matrices and vectors.
 - What `A p = c` means (rows of A, the vector p, the vector c):
-  Because we have multiple linear equations with unknown prices.
-  We can represent them using matrices and vectors.
+  - Because we have multiple linear equations with unknown prices.
+    We can represent them using matrices and vectors.
 - What "parameter space" means:
-  Parameter space is the space containing all possible combinations of model parameters.
-  In this problem, each point [mu, sigma] represents one Gaussian distribution.
+  - Parameter space is the space containing all possible combinations of model parameters.
+    In this problem, each point [mu, sigma] represents one Gaussian distribution.
 - What SSE measures:
-  SSE (Sum of Squared Errors) measures the total squared difference between
-  the observed data and the predicted values.
+  - SSE (Sum of Squared Errors) measures the total squared difference between
+    the observed data and the predicted values.
 - What the gradient is, and why we step against it:
-  The gradient is a vector pointing in the direction of the steepest increase in SSE.
-  We move in the opposite direction to reduce SSE.
+  - The gradient is a vector pointing in the direction of the steepest increase in SSE.
+    We move in the opposite direction to reduce SSE.
 - Learning rate too big / too small:
-  A learning rate that is too big can overshoot the minimum and cause instability.
-  A learning rate that is too small makes convergence very slow.
+  - A learning rate that is too big can overshoot the minimum and cause instability.
+    A learning rate that is too small makes convergence very slow.
 
 ## Worked examples by hand
 

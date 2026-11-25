@@ -7,20 +7,20 @@
 Answer each in 1–2 lines:
 
 - What a vector is, in the 3Blue1Brown picture (an arrow) and in code (a list of numbers):
-  As a picture, a vector is an arrow that starts at the origin and has a length and a direction.
-  In code, it's a list of numbers: how far the arrow goes along each axis, e.g. `[2, -1]`.
+  - As a picture, a vector is an arrow that starts at the origin and has a length and a direction.
+    In code, it's a list of numbers: how far the arrow goes along each axis, e.g. `[2, -1]`.
 - How to add two vectors, as arrows (tip to tail) and as numbers:
-  Arrows: put the tail of v on the tip of u; u + v goes from the start of u to the tip of v.
-  Numbers: add entry by entry, `[1, 2] + [3, -1] = [4, 1]`.
+  - Arrows: put the tail of v on the tip of u; u + v goes from the start of u to the tip of v.
+    Numbers: add entry by entry, `[1, 2] + [3, -1] = [4, 1]`.
 - What multiplying a vector by a number does (k > 1, 0 < k < 1, k < 0):
-  k > 1 stretches the arrow, 0 < k < 1 shrinks it, k < 0 flips it to point the opposite way.
-  In numbers, every entry is multiplied by k.
+  - k > 1 stretches the arrow, 0 < k < 1 shrinks it, k < 0 flips it to point the opposite way.
+    In numbers, every entry is multiplied by k.
 - Why `add` must reject two vectors of different lengths:
-  Entries are added in pairs, so a 2D and a 3D vector have nothing to pair up with.
-  They live in different spaces; raising ValueError shows the bug instead of hiding it.
+  - Entries are added in pairs, so a 2D and a 3D vector have nothing to pair up with.
+    They live in different spaces; raising ValueError shows the bug instead of hiding it.
 - How a step in parameter space (`p - lr * grad`) uses scale and add:
-  First scale: `scale(-lr, grad)` makes a small arrow pointing downhill.
-  Then add: `add(p, step)` moves the point p along that arrow.
+  - First scale: `scale(-lr, grad)` makes a small arrow pointing downhill.
+    Then add: `add(p, step)` moves the point p along that arrow.
 
 ## Worked examples by hand
 
