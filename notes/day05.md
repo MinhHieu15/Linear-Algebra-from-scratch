@@ -6,7 +6,7 @@
 
 Answer each in 1–2 lines:
 
-- What a vector is, in the 3Blue1Brown picture (an arrow) and in code (a list of numbers):
+- What a vector is, in the 3Blue1Brown picture (an arrow) and in code (a list of numbers): s 
 - How to add two vectors, as arrows (tip to tail) and as numbers:
 - What multiplying a vector by a number does (k > 1, 0 < k < 1, k < 0):
 - Why `add` must reject two vectors of different lengths:
