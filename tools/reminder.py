@@ -267,6 +267,24 @@ def add_readme_row(day, title):
     return True
 
 
+def proxy_problem():
+    """If Claude Code is set to go through a local proxy (e.g. OmniRoute) that isn't running, say so."""
+    try:
+        settings = json.loads((Path.home() / ".claude" / "settings.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return None
+    url = os.environ.get("ANTHROPIC_BASE_URL") or settings.get("env", {}).get("ANTHROPIC_BASE_URL", "")
+    m = re.match(r"https?://(localhost|127\.0\.0\.1)(?::(\d+))?", url)
+    if not m:
+        return None
+    try:
+        socket.create_connection(("127.0.0.1", int(m[2] or 80)), timeout=1).close()
+        return None
+    except OSError:
+        return (f"Claude Code is set to use a local proxy at {url} (OmniRoute?), but it isn't running.\n"
+                "Start it, then press Create again.")
+
+
 def first_commit_date():
     first = git("log", "--reverse", "--date=short", "--format=%ad").split()
     return dt.date.fromisoformat(first[0]) if first else dt.date.today()
@@ -481,6 +499,11 @@ def show(week=False):
         cancel.pack(side="right", padx=(6, 0))
 
         def start():
+            problem = proxy_problem()
+            if problem:
+                status.config(text="✗ " + problem, fg=RED)
+                return
+            status.config(fg=MUTED)
             go.config(state="disabled")
             cancel.config(state="disabled")
             win.protocol("WM_DELETE_WINDOW", lambda: None)  # don't close while Claude works
@@ -512,6 +535,7 @@ def show(week=False):
                 else:
                     status.config(text="✗ Something went wrong:\n" + result["out"][-400:], fg=RED)
                     cancel.config(text="Close", state="normal", command=win.destroy)
+                    go.config(state="normal", text="Try again")
                 win.protocol("WM_DELETE_WINDOW", win.destroy)
 
             threading.Thread(target=work, daemon=True).start()

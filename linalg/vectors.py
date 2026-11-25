@@ -50,3 +50,27 @@ def vectors_close(u, v, tol=1e-10):
     if u.shape != v.shape:
         raise ValueError("Vectors must have the same length")
     return np.all(np.abs(u - v) < tol)
+
+
+def add(u, v):
+    """Day 5: return the vector u + v, built with a for loop.
+
+    Add the entries one by one: result[i] = u[i] + v[i].
+    Do not write u + v on whole arrays here (that is what the tests compare against).
+    Raise ValueError if the lengths differ.
+
+    >>> add([1, 2], [3, -1])
+    array([4., 1.])
+    """
+    raise NotImplementedError
+
+
+def scale(k, v):
+    """Day 5: return the vector k * v (k is a number), built with a for loop.
+
+    Multiply the entries one by one: result[i] = k * v[i].
+
+    >>> scale(3, [1, 2])
+    array([3., 6.])
+    """
+    raise NotImplementedError
