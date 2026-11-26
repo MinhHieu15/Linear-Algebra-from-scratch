@@ -62,7 +62,15 @@ def add(u, v):
     >>> add([1, 2], [3, -1])
     array([4., 1.])
     """
-    raise NotImplementedError
+    u = as_vector(u)
+    v = as_vector(v)
+    if u.shape != v.shape:
+        raise ValueError("Vectors must have the same length")
+    result = np.zeros(len(u))
+    for i in range(len(u)):
+        result[i] = u[i] + v[i]
+    return result
+
 
 
 def scale(k, v):
