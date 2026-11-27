@@ -86,3 +86,28 @@ def scale(k, v):
     for i in range(len(v)):
         result[i] = k * v[i]
     return result
+
+
+def sub(u, v):
+    """Day 6: return the vector u - v.
+
+    Build it from your own functions: u - v is u + (-1) * v.
+    Raise ValueError if the lengths differ.
+
+    >>> sub([1, 2], [3, -1])
+    array([-2.,  3.])
+    """
+    raise NotImplementedError
+
+
+def linear_combination(coeffs, vectors):
+    """Day 6: return c0 * v0 + c1 * v1 + ... for coeffs [c0, c1, ...]
+    and vectors [v0, v1, ...].
+
+    Start from a zero vector and loop: result = add(result, scale(c, v)).
+    Raise ValueError if the number of coeffs is not the number of vectors.
+
+    >>> linear_combination([2, 3], [[1, 0], [0, 1]])
+    array([2., 3.])
+    """
+    raise NotImplementedError

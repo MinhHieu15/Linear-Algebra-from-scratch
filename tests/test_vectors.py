@@ -4,9 +4,18 @@
 import numpy as np
 import pytest
 
-from linalg.vectors import add, as_vector, is_zero_vector, scale, vectors_close
+from linalg.vectors import (
+    add,
+    as_vector,
+    is_zero_vector,
+    linear_combination,
+    scale,
+    sub,
+    vectors_close,
+)
 
 DAY5 = pytest.mark.skip(reason="Day 5: delete the @DAY5 lines when done")
+DAY6 = pytest.mark.skip(reason="Day 6: delete the @DAY6 lines when done")
 
 
 
@@ -111,3 +120,53 @@ def test_scale_does_not_change_input():
 def test_add_opposite_gives_zero():
     v = np.array([1.5, -2.0, 3.0])
     is_zero_vector(add(v, scale(-1,v)))
+
+
+# ---- Day 6: sub and linear_combination ----
+
+
+@DAY6
+def test_sub_small_example():
+    np.testing.assert_array_equal(sub([1, 2], [3, -1]), np.array([-2.0, 3.0]))
+
+
+@DAY6
+def test_sub_matches_numpy():
+    rng = np.random.default_rng(6)
+    u = rng.normal(size=6)
+    v = rng.normal(size=6)
+    np.testing.assert_allclose(sub(u, v), u - v)
+
+
+@DAY6
+def test_sub_rejects_different_lengths():
+    with pytest.raises(ValueError):
+        sub([1, 2], [1, 2, 3])
+
+
+@DAY6
+def test_linear_combination_small_example():
+    result = linear_combination([2, 3], [[1, 0], [0, 1]])
+    np.testing.assert_array_equal(result, np.array([2.0, 3.0]))
+
+
+@DAY6
+def test_linear_combination_matches_numpy():
+    rng = np.random.default_rng(6)
+    coeffs = rng.normal(size=3)
+    vectors = rng.normal(size=(3, 5))
+    np.testing.assert_allclose(linear_combination(coeffs, vectors), coeffs @ vectors)
+
+
+@DAY6
+def test_linear_combination_of_columns_is_matrix_times_vector():
+    A = np.array([[1, 1, 1], [3, 2, 1], [2, 1, 2]])
+    p = np.array([1, 2, 3])
+    columns = [A[:, j] for j in range(3)]
+    np.testing.assert_allclose(linear_combination(p, columns), A @ p)
+
+
+@DAY6
+def test_linear_combination_rejects_wrong_number_of_coeffs():
+    with pytest.raises(ValueError):
+        linear_combination([1, 2], [[1, 0]])
