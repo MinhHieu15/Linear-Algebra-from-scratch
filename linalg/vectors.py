@@ -81,4 +81,8 @@ def scale(k, v):
     >>> scale(3, [1, 2])
     array([3., 6.])
     """
-    raise NotImplementedError
+    v = as_vector(v)
+    result = np.zeros(len(v))
+    for i in range(len(v)):
+        result[i] = k * v[i]
+    return result

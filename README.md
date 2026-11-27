@@ -32,3 +32,4 @@ pytest
 | 02 | Indexing, masks, broadcasting, `as_vector` | [notebook](notebooks/day02_indexing.ipynb) · [vectors.py](linalg/vectors.py) | [notes](notes/day02.md) |
 | 03 | NumPy exercises, `is_zero_vector`, `vectors_close` | [notebook](notebooks/day03_exercises.ipynb) · [vectors.py](linalg/vectors.py) | [notes](notes/day03.md) |
 | 04 | Why linear algebra: apples & bananas, parameter space | [notebook](notebooks/day04_parameter_space.ipynb) | [notes](notes/day04.md) |
+| 05 | Vector add and scale | [notebook](notebooks/day05_add_scale.ipynb) · [vectors.py](inalg/vectors.py) | [notes](notes/day05.md) |

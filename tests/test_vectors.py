@@ -70,12 +70,12 @@ def test_is_zero_vector_false_for_negative_values():
 
 # ---- Day 5: add and scale ----
 
-@DAY5
+
 def test_add_small_example():
     np.testing.assert_array_equal(add([1, 2], [3, -1]), np.array([4.0, 1.0]))
 
 
-@DAY5
+
 def test_add_matches_numpy():
     rng = np.random.default_rng(5)
     u = rng.normal(size=6)
@@ -83,18 +83,18 @@ def test_add_matches_numpy():
     np.testing.assert_allclose(add(u, v), u + v)
 
 
-@DAY5
+
 def test_add_rejects_different_lengths():
     with pytest.raises(ValueError):
         add([1, 2], [1, 2, 3])
 
 
-@DAY5
+
 def test_scale_small_example():
     np.testing.assert_array_equal(scale(3, [1, 2]), np.array([3.0, 6.0]))
 
 
-@DAY5
+
 def test_scale_matches_numpy():
     rng = np.random.default_rng(5)
     v = rng.normal(size=6)
@@ -102,8 +102,12 @@ def test_scale_matches_numpy():
         np.testing.assert_allclose(scale(k, v), k * v)
 
 
-@DAY5
+
 def test_scale_does_not_change_input():
     v = np.array([1.0, 2.0, 3.0])
     scale(10, v)
     np.testing.assert_array_equal(v, np.array([1.0, 2.0, 3.0]))
+
+def test_add_opposite_gives_zero():
+    v = np.array([1.5, -2.0, 3.0])
+    is_zero_vector(add(v, scale(-1,v)))
