@@ -97,7 +97,12 @@ def sub(u, v):
     >>> sub([1, 2], [3, -1])
     array([-2.,  3.])
     """
-    raise NotImplementedError
+    u = as_vector(u)
+    v = as_vector(v)
+    if u.shape != v.shape:
+        raise ValueError("Vectors must have the same length")
+    result = add(u, scale(-1,v))
+    return result
 
 
 def linear_combination(coeffs, vectors):
@@ -111,3 +116,4 @@ def linear_combination(coeffs, vectors):
     array([2., 3.])
     """
     raise NotImplementedError
+
